@@ -1,0 +1,27 @@
+{
+    "name": "usingreacthooks",
+    "version": "1.0.0",
+    "description": "Using React Hooks Demo",
+    "main": "index.js",
+    "scripts": {
+        "test": "test",
+        "dev": "next",
+        "build": "next build",
+        "start": "next start"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/GlennPacker/UsingReactHooks.git"
+    },
+    "author": "Glenn Packer",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/GlennPacker/UsingReactHooks/issues"
+    },
+    "homepage": "https://github.com/GlennPacker/UsingReactHooks#readme",
+    "dependencies": {
+        "next": "^8.1.0",
+        "react": "^16.8.6",
+        "react-dom": "^16.8.6"
+    }
+}
