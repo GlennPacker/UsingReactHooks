@@ -15,7 +15,6 @@ const paraglidersReducer = (state, action) => {
       return updateFavorite(true);
     case "unfavorite":
       return updateFavorite(false);
-
     default:
       return state;
   }

@@ -1,4 +1,10 @@
-import React, { useState, useEffect, useContext, useReducer } from "react";
+import React, {
+  useState,
+  useEffect,
+  useContext,
+  useReducer,
+  useCallback
+} from "react";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../static/site.css";
@@ -65,13 +71,13 @@ const Paragliders = () => {
     setParagliderClassB(!paragliderClassB);
   };
 
-  const heartFavoriteHandler = (e, favoriteValue) => {
+  const heartFavoriteHandler = useCallback((e, favoriteValue) => {
     e.preventDefault();
     dispatch({
       type: favoriteValue ? "favorite" : "unfavorite",
       sessionId: parseInt(e.target.attributes["data-sessionid"].value)
     });
-  };
+  }, []);
 
   if (isLoading) return <div>Loading...</div>;
 
