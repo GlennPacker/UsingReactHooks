@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useReducer } from "react";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../static/site.css";
@@ -12,7 +12,17 @@ const Paragliders = ({}) => {
   const [paragliderClassA, setParagliderClassA] = useState(true);
   const [paragliderClassB, setParagliderClassB] = useState(true);
 
-  const [paragliderList, setParagliderList] = useState([]);
+  const paraglidersReducer = (state, action) => {
+    switch (action.type) {
+      case "setParaglidersList":
+        return action.data;
+      default:
+        return state;
+    }
+  };
+
+  const [paragliderList, dispatch] = useReducer(paraglidersReducer, []);
+
   const [isLoading, setIsLoading] = useState(true);
 
   const context = useContext(ConfigContext);
@@ -31,7 +41,11 @@ const Paragliders = ({}) => {
           return (paragliderClassA && classA) || (paragliderClassB && classB);
         }
       );
-      setParagliderList(paragliderListServerFilter);
+
+      dispatch({
+        type: "setParaglidersList",
+        data: paragliderListServerFilter
+      });
     });
     return () => {
       console.log("cleanup");
