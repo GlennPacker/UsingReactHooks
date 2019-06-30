@@ -1,9 +1,9 @@
 import React, {
-  useState,
-  useEffect,
+  useCallback,
   useContext,
+  useEffect,
   useReducer,
-  useCallback
+  useState
 } from "react";
 
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -57,14 +57,10 @@ const Paragliders = () => {
           ({ classA, classB }) =>
             (paragliderClassA && classA) || (paragliderClassB && classB)
         )
-        .sort(function(a, b) {
-          if (a.firstName < b.firstName) {
-            return -1;
-          }
-          if (a.firstName > b.firstName) {
-            return 1;
-          }
-          return 0;
+        .sort((a, b) => {
+          return a.name.localeCompare(b.name, "en", {
+            sensitivity: "accent"
+          });
         });
 
   const handleChangeClassB = () => {
