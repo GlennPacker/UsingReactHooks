@@ -7,35 +7,23 @@ import { Menu } from "./menu";
 import ParagliderData from "./paragliderData";
 import ParagliderDetail from "./paragliderDetail";
 import { ConfigContext } from "./app";
+import paraglidersReducer from "./paraglidersReducer";
 
-const Paragliders = ({}) => {
+const Paragliders = () => {
   const [paragliderClassA, setParagliderClassA] = useState(true);
   const [paragliderClassB, setParagliderClassB] = useState(true);
-
-  const paraglidersReducer = (state, action) => {
-    switch (action.type) {
-      case "setParaglidersList":
-        return action.data;
-      default:
-        return state;
-    }
-  };
-
   const [paragliderList, dispatch] = useReducer(paraglidersReducer, []);
-
   const [isLoading, setIsLoading] = useState(true);
 
   const context = useContext(ConfigContext);
 
   useEffect(() => {
-    //setIsLoading(true);
     setIsLoading(false);
     new Promise(function(resolve) {
       setTimeout(function() {
         resolve();
       }, 1000);
     }).then(() => {
-      //setIsLoading(false);
       const paragliderListServerFilter = ParagliderData.filter(
         ({ classA, classB }) => {
           return (paragliderClassA && classA) || (paragliderClassB && classB);
@@ -50,7 +38,7 @@ const Paragliders = ({}) => {
     return () => {
       // console.log("cleanup");
     };
-  }, []); // [speakingClassB, speakingSaturday]);
+  }, []);
 
   const handleChangeClassA = () => {
     setParagliderClassA(!paragliderClassA);
@@ -79,17 +67,10 @@ const Paragliders = ({}) => {
 
   const heartFavoriteHandler = (e, favoriteValue) => {
     e.preventDefault();
-    const sessionId = parseInt(e.target.attributes["data-sessionid"].value);
-    setParagliderList(
-      paragliderList.map(item => {
-        if (item.id === sessionId) {
-          item.favorite = favoriteValue;
-          return item;
-        }
-        return item;
-      })
-    );
-    //console.log("changing session favorte to " + favoriteValue);
+    dispatch({
+      type: favoriteValue ? "favorite" : "unfavorite",
+      sessionId: parseInt(e.target.attributes["data-sessionid"].value)
+    });
   };
 
   if (isLoading) return <div>Loading...</div>;
