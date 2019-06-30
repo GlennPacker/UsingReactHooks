@@ -48,7 +48,7 @@ const Paragliders = ({}) => {
       });
     });
     return () => {
-      console.log("cleanup");
+      // console.log("cleanup");
     };
   }, []); // [speakingClassB, speakingSaturday]);
 
